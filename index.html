@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>가정경제R&D센터</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #fdfaf6;
+      font-family: 'Noto Sans KR', sans-serif;
+      color: #1c2a3a;
+    }
+
+    .logo {
+      text-align: center;
+      padding: 40px 0 20px;
+    }
+
+    .logo img {
+      max-width: 50px;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .slider {
+      position: relative;
+      max-width: 1000px;
+      height: 350px;
+      margin: 0 auto 40px;
+      overflow: hidden;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .slide-img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+    }
+
+    .slide-img.active {
+      opacity: 1;
+    }
+
+    .container {
+      max-width: 940px;
+      margin: 0 auto 60px;
+      background-color: #ffffff;
+      padding: 40px 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    }
+
+    h1 {
+      font-size: 2rem;
+      color: #34527c;
+      margin-bottom: 0.2em;
+    }
+
+    h2 {
+      font-size: 1.3rem;
+      color: #34527c;
+      margin-top: 2.5em;
+      border-left: 4px solid #34527c;
+      padding-left: 10px;
+    }
+
+    p {
+      margin-bottom: 1em;
+      line-height: 1.7;
+    }
+
+    ul {
+      padding-left: 20px;
+    }
+
+    ul li {
+      margin-bottom: 0.6em;
+      line-height: 1.6;
+    }
+
+    strong {
+      color: #1c2a3a;
+    }
+
+    .highlight {
+      font-weight: bold;
+      color: #f39c12;
+    }
+
+    .contact {
+      margin-top: 2.5em;
+      padding-top: 1.5em;
+      border-top: 1px solid #ddd;
+    }
+
+    a {
+      color: #34527c;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+/* 가지넣기 */
+.tree-list {
+  list-style: none;
+  margin-left: 1em;
+  padding-left: 1.5em;
+  position: relative;
+  border-left: 2px solid #ccc; /* 왼쪽 세로줄 (전체 연결) */
+}
+
+.tree-list li {
+  position: relative;
+  padding-left: 10px;
+  margin: 0.5em 0;
+}
+
+/* 각 항목 앞 가로선 ├ */
+.tree-list li::before {
+  content: "";
+  position: absolute;
+  top: 0.8em;
+  left: -1.5em;
+  width: 1em;
+  height: 2px;
+  background-color: #ccc;
+}
+
+/* 마지막 항목 └ */
+.tree-list li.last::before {
+  top: 0.8em;
+  height: 2px;
+  width: 1em;
+  background-color: #ccc;
+}
+
+.tree-list li.last::after {
+  content: "";
+  position: absolute;
+  left: -26px;
+  top: 0.9em;
+  bottom: 0;
+  background-color: #fff;
+  width: 2px;
+  height: 11px;
+}
+
+
+
+
+
+    /* 👇 중괄호 시각화용 스타일 */
+
+    .balance-visual-horizontal {
+  display: flex;
+  flex-direction: row;
+  align-items: center; 
+  justify-content: left;
+  margin: 1px 0;
+}
+
+.bracket-group-horizontal {
+  display: flex;
+  align-items: center;
+}
+
+.brace-horizontal {
+  font-size: 4.5rem;
+  color: #ccc;
+  padding: 1 5px;
+  line-height: 0.2;  
+  font-weight: 300; /* 기존보다 얇게 보이도록 설정 */
+  font-family: 'Roboto', 'Segoe UI', sans-serif;  /* 이 부분 추가 */
+}
+
+ul li > .balance-visual-horizontal {
+  margin-top: 0.0em;
+}
+
+.balance-items-horizontal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 1.0rem;
+  line-height: 2;
+}
+
+.balance-desc-horizontal {
+  font-size: 1.0rem;
+  margin-left: 1px;
+  color: #1c2a3a;
+}
+
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 25px 20px;
+        margin: 30px 15px;
+      }
+
+      h1 {
+        font-size: 1.6rem;
+      }
+
+      h2 {
+        font-size: 1.1rem;
+      }
+
+      .brace {
+        font-size: 4rem;
+      }
+
+      .balance-items {
+        font-size: 1rem;
+      }
+
+      .balance-desc {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+
+
+   <!-- CF 영상 영역 -->
+  <div class="video-section" style="max-width:1000px; margin:0 auto 40px; text-align:center;">
+    <video id="cfVideo" style="width:100%; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.1);">
+      <source src="가정경제RnD센터_CF 2025-08-26.mp4" type="video/mp4">
+      브라우저가 동영상을 지원하지 않습니다.
+    </video>
+    <br>
+    <div style="margin-top:10px;">
+      <button id="playPauseBtn" style="padding:8px 16px; background:#34527c; color:#fff; border:none; border-radius:6px; cursor:pointer; margin-right:10px;">
+        ▶ 재생
+      </button>
+      <button id="replayBtn" style="padding:8px 16px; background:#34527c; color:#fff; border:none; border-radius:6px; cursor:pointer;">
+        다시보기
+      </button>
+    </div>
+  </div>
+
+  <script>
+    const video = document.getElementById('cfVideo');
+    const playPauseBtn = document.getElementById('playPauseBtn');
+    const replayBtn = document.getElementById('replayBtn');
+
+    // ▶재생 / ⏸일시정지 버튼 클릭 이벤트
+    playPauseBtn.addEventListener('click', () => {
+      if (video.paused || video.ended) {
+        video.play();
+      } else {
+        video.pause();
+      }
+    });
+
+    // 🔄 다시보기 버튼 클릭 이벤트
+    replayBtn.addEventListener('click', () => {
+      video.currentTime = 0;
+      video.play();
+    });
+
+    // 상태 변화에 따라 버튼 텍스트 변경
+    video.addEventListener('play', () => {
+      playPauseBtn.textContent = "⏸ 정지";
+    });
+
+    video.addEventListener('pause', () => {
+      if (!video.ended) {
+        playPauseBtn.textContent = "▶ 재생";
+      }
+    });
+
+    video.addEventListener('ended', () => {
+      playPauseBtn.textContent = "▶ 재생"; // 끝나면 재생 상태로 돌려줌
+    });
+  </script>
+
+
+
+
+
+<body>
+
+
+
+  <!-- 본문 -->
+  <div class="container">
+    <h1>🏠 가정경제R&D센터</h1>
+    <p><strong>당신과 가정을 위한 맞춤형 보험 & 재무설계 컨설팅</strong></p>
+    <p>
+      <span class="highlight">가정경제R&D센터</span>는 이미 가입한 보험의 재원을 바탕으로, 당신과 가정의 더 나은 생애를 설계하는 <strong>전문 재무컨설팅 그룹</strong>입니다.<br>
+      단순한 상품 판매가 아닌, <strong>정밀 분석 기반의 맞춤형 솔루션</strong>으로 더욱 든든한 <strong>생애 설계</strong>가 되도록 도와드립니다.
+    </p>
+
+    <h2>💡 주요 서비스</h2>
+    <ul>
+      <li><strong>재무진단 & 보험 리모델링</strong> – 현실적인 점검과 가성비의 극대화</li>
+      <li><strong>맞춤형 보험 포트폴리오 설계</strong> – 생명·건강·의료 전 생애주기 커버</li>
+      <li><strong>은퇴 설계 & 노후 플랜</strong> – 연금·퇴직·긴급예비비 등 종합 금융자산 관리 설계</li>
+      <li><strong>가족 중심 자산 보호 전략</strong> – 교육자금·주택자금·부모부양 등의 유동성 자금 확보</li>
+      <li><strong>세테크 & 상속 플랜</strong> – 합법적 절세와 자산 이전 전략 컨설팅</li>
+      <li><strong>기업(법인회사) 전반에 관한 업무처리</strong> </li>
+<ul class="tree-list">
+  <li>가지급금 정리</li>
+  <li>이익잉여금 처리</li>
+  <li>자기주식취득</li>
+  <li>주식 이동 및 소각</li>
+  <li>기업승계</li>
+  <li class="last">상속/증여 및 절세 업무 처리</li>
+</ul>
+    </ul>
+
+    <h2>✅ 왜 가정경제R&D센터인가요?</h2>
+<ul>
+<li> 균형 있는 조합으로 <span class="highlight">‘골든 밸런스’</span> 유지 </li>
+<ul class="tree-list">
+  <li>의료 보장 자산</li>
+  <li>미래 현금 자산</li>
+  <li class="last">가족 생활 보장 자산</li>
+</ul>
+</li>
+      <li>이미 가입한 보험의 재원을 통하여, 더욱 든든한 생애를 설계해주는 <strong>정밀분석 기반의 맞춤형 솔루션</strong></li>
+      <li><strong>이해하기 쉬운 설명</strong>과 <strong>나만의 Life cycle</strong>에 맞춘 <strong>정직한 설계</strong></li>
+    </ul>
+
+    <div class="contact">
+      <p><strong>📞 무료 상담 예약</strong>: <a href="tel:0000000000">000-0000-0000</a></p>
+      <p><strong>🌐 홈페이지</strong>: <a href="http://www.familyrndcenter.co.kr" target="_blank">www.familyrndcenter.co.kr</a></p>
+    </div>
+  </div>
+
+  <!-- 슬라이드 전환 스크립트 -->
+  <script>
+    const slides = document.querySelectorAll('.slide-img');
+    let current = 0;
+
+    setInterval(() => {
+      slides[current].classList.remove('active');
+      current = (current + 1) % slides.length;
+      slides[current].classList.add('active');
+    }, 4000); // 4초 간격
+  </script>
+
+</body>
+</html>
